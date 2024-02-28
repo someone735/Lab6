@@ -47,7 +47,9 @@ Description : API Usage.
     <script>
         // Function to fetch and display students
         async function fetchStudents() {
-            
+            let x = await fetch("https://65df8cd4ff5e305f32a27d6b.mockapi.io/student");
+            let y = await x.json();
+            console.log(y);
         }
 
         // Function to fetch and display courses for a student
