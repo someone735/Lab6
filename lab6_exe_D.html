@@ -47,10 +47,27 @@ Description : API Usage.
     <script>
         // Function to fetch and display students
         async function fetchStudents() {
-            let x = await fetch("https://65df8cd4ff5e305f32a27d6b.mockapi.io/student");
-            let y = await x.json();
-            console.log(y);
+           try{
+                let res = await fetch('https://65df8cd4ff5e305f32a27d6b.mockapi.io/student');
+                let results = await res.json();
+
+                results.forEach(student => {
+                    const liElement = document.createElement('li');
+                    liElement.textContent = `${student.name}`;
+                    liElement.onclick = () =>fetchCourses(student.id);
+                    const dataContainer = document.getElementById('studentList');
+                    dataContainer.appendChild(liElement);
+
+                    
+                })
+
+
+            }
+            catch(error){console.log(error);}
+
         }
+
+        
 
         // Function to fetch and display courses for a student
         async function fetchCourses(studentId) {
@@ -58,14 +75,23 @@ Description : API Usage.
                 let res = await fetch(`https://65df8cd4ff5e305f32a27d6b.mockapi.io/student/${studentId}/courses`);
                 let results = await res.json();
 
-                
+                results.forEach(course => {
+                    const liElement = document.createElement('li');
+                    liElement.textContent = `${course.name} (Unit: ${course.unit})`;
+
+                    const dataContainer = document.getElementById('courseList');
+                    dataContainer.appendChild(liElement);
+
+                    
+                })
+
+
             }
-            catch(error){console.log(error)}
+            catch(error){console.log(error);}
 
         }
 
 
-        fetchCourses(2);
         // Fetch students on window load
         window.onload = fetchStudents;
     </script>
