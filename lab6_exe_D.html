@@ -52,9 +52,18 @@ Description : API Usage.
 
         // Function to fetch and display courses for a student
         async function fetchCourses(studentId) {
-            
+            try{
+                let res = await fetch(`https://65df8cd4ff5e305f32a27d6b.mockapi.io/student/${studentId}/courses`);
+                let results = await res.json();
+
+                
+            }
+            catch(error){console.log(error)}
+
         }
 
+
+        fetchCourses(2);
         // Fetch students on window load
         window.onload = fetchStudents;
     </script>
